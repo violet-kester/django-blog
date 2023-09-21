@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Post
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic import ListView
 
 
 def post_list(request):
@@ -38,3 +39,19 @@ def post_detail(request, year, month, day, post):
     return render(request,
                   'blog/post/detail.html',
                   {'post': post})
+
+
+class PostListView(ListView):
+    """Alternative class-based post_list view."""
+
+    # set queryset attribute to filter posts to display
+    queryset = Post.objects.filter(status='PB')
+
+    # set context_object_name attribute to be referenced in template
+    context_object_name = 'posts'
+
+    # enable pagination - 3 posts per page
+    paginate_by = 3
+
+    # specify template to render the view
+    template_name = 'blog/post/list.html'
