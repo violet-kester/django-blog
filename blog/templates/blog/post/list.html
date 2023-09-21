@@ -3,16 +3,24 @@
 {% block title %}Blog title{% endblock %}
 
 {% block content %}
+
+  <!-- logo -->
   <h1>Blog title</h1>
+
+  <!-- posts -->
   {% for post in posts %}
-    <h2>
-      <a href="{{ post.get_absolute_url }}">
-        {{ post.title }}
-      </a>
-    </h2>
-    <p class="date">
-      Published {{ post.publish }}
-    </p>
-    {{ post.body|truncatewords:30|linebreaks }}
+  <h2>
+    <a href="{{ post.get_absolute_url }}">
+      {{ post.title }}
+    </a>
+  </h2>
+  <p class="date">
+    Published {{ post.publish }}
+  </p>
+  {{ post.body|truncatewords:30|linebreaks }}
   {% endfor %}
+
+  <!-- paginator -->
+  {% include "pagination.html" with page=posts %}
+
 {% endblock %}
