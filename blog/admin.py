@@ -5,7 +5,7 @@ from .models import Post
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     # set columns to be displayed
-    list_display = ['title', 'slug', 'author', 'publish', 'status']
+    list_display = ['id', 'title', 'slug', 'author', 'publish', 'status']
 
     # set column filters
     list_filter = ['status', 'created', 'publish', 'author']
