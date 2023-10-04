@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Post
-from .forms import EmailPostForm
+from .models import Post, Comment
+from .forms import EmailPostForm, CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail
 from django.views.generic import ListView
+from django.views.decorators import require_POST
 
 
 def post_list(request):
@@ -84,3 +85,26 @@ def post_share(request, post_id):
     return render(request, 'blog/post/share.html', {'post': post,
                                                     'form': form,
                                                     'sent': sent})
+
+
+@require_POST
+def post_comment(request, post_id):
+    """Create and save a comment for a published post."""
+
+    post = get_object_or_404(Post, id=post_id, status=Post.status.PUBLISHED)
+    comment = None
+
+    # instantiate form using submitted POST data when a comment is posted
+    form = CommentForm(data=request.Post)
+    if form.is_valid():
+        # create a comment without saving it to the database
+        comment = form.save(commit=False)
+        # assign comment to post
+        comment.post = post
+        # save the comment to the database
+        comment.save()
+
+    return render(request, 'blog/post/comment.html',
+                  {'post': post,
+                   'form': form,
+                   'comment': comment})
