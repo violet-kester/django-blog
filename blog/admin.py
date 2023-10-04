@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post
+from .models import Post, Comment
 
 
 @admin.register(Post)
@@ -26,3 +26,10 @@ class PostAdmin(admin.ModelAdmin):
 
     # order columns by status and publish by default
     ordering = ['status', 'publish']
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdein):
+    list_display = ['name', 'email', 'post', 'created', 'active']
+    list_filter = ['active', 'created', 'updated']
+    search_fields = ['name', 'email', 'body']
