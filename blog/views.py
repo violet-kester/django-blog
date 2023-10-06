@@ -4,7 +4,7 @@ from .forms import EmailPostForm, CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail
 from django.views.generic import ListView
-from django.views.decorators import require_POST
+from django.views.decorators.http import require_POST
 
 
 def post_list(request):
