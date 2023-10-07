@@ -30,7 +30,7 @@ def post_list(request):
 
 
 def post_detail(request, year, month, day, post):
-    """Retrieves individual published Post by ID."""
+    """Retrieves individual published post with comments by ID."""
 
     post = get_object_or_404(Post,
                              status=Post.Status.PUBLISHED,
@@ -39,9 +39,16 @@ def post_detail(request, year, month, day, post):
                              publish__month=month,
                              publish__day=day)
 
+    # active comments for this post
+    comments = post.comments.filter(active=True)
+    # form for posting comments
+    form = CommentForm()
+
     return render(request,
                   'blog/post/detail.html',
-                  {'post': post})
+                  {'post': post,
+                   'comments': comments,
+                   'form': form})
 
 
 class PostListView(ListView):
@@ -91,7 +98,7 @@ def post_share(request, post_id):
 def post_comment(request, post_id):
     """Create and save a comment for a published post."""
 
-    post = get_object_or_404(Post, id=post_id, status=Post.status.PUBLISHED)
+    post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
     comment = None
 
     # instantiate form using submitted POST data when a comment is posted
