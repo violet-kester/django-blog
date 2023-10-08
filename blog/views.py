@@ -102,7 +102,7 @@ def post_comment(request, post_id):
     comment = None
 
     # instantiate form using submitted POST data when a comment is posted
-    form = CommentForm(data=request.Post)
+    form = CommentForm(data=request.POST)
     if form.is_valid():
         # create a comment without saving it to the database
         comment = form.save(commit=False)
