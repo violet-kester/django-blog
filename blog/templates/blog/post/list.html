@@ -7,6 +7,10 @@
   <!-- logo -->
   <h1>Blog title</h1>
 
+  {% if tag %}
+  <h2>Posts tagged with "{{ tag.name }}"</h2>
+  {% endif %}
+
   <!-- posts -->
   {% for post in posts %}
   <h2>
@@ -14,7 +18,15 @@
       {{ post.title }}
     </a>
   </h2>
-  <p class="tags">Tags: {{ post.tags.all|join:", " }}</p>
+  <p class="tags">
+    Tags:
+    {% for tag in post.tags.all %}
+    <a href="{% url 'blog:post_list_by_tag' tag.slug %}">
+      {{ tag.name }}
+    </a>
+    {% if not forloop.last %}, {% endif %}
+    {% endfor %}
+  </p>
   <p class="date">
     Published {{ post.publish }}
   </p>
@@ -22,6 +34,6 @@
   {% endfor %}
 
   <!-- paginator -->
-  {% include "pagination.html" with page=page_obj %}
+  {% include "pagination.html" with page=posts %}
 
 {% endblock %}
