@@ -10,7 +10,15 @@ from django.db.models import Count
 
 
 def post_list(request, tag_slug=None):
-    """Retrieves all published posts in paginated form."""
+    """Renders a template of all published posts in paginated form.
+       Optionally filters posts by tag slug URL parameter.
+
+       Context variables:
+
+       - `posts` - A Page object containing a list of Post objects.
+       - `tag` - A Tag object if tag slug is provided, or None.
+
+    """
 
     post_list = Post.objects.filter(status='PB')
     tag = None
@@ -39,12 +47,14 @@ def post_list(request, tag_slug=None):
 
 
 def post_detail(request, year, month, day, post):
-    """Renders a template of a single published post with the following data:
+    """Renders a template of a single published post.
 
-        - `post` - The Post object.
-        - `comments` - A QuerySet of related comment objects.
-        - `form` - A CommentForm instance for posting new comments.
-        - `similar_posts` - A QuerySet of Posts that share the same tags.
+       Context variables:
+
+       - `post` - The Post object.
+       - `comments` - A QuerySet of related comment objects.
+       - `form` - A CommentForm instance for posting new comments.
+       - `similar_posts` - A QuerySet of recommended Posts sharing the same tags.
     """
 
     post = get_object_or_404(Post,
@@ -60,7 +70,7 @@ def post_detail(request, year, month, day, post):
     # form for posting comments
     form = CommentForm()
 
-    # list of similar posts
+    # list of similar, recommended posts
     post_tags_ids = post.tags.values_list('id', flat=True)
     similar_posts = Post.objects.filter(status='PB')\
                                 .filter(tags__in=post_tags_ids)\
