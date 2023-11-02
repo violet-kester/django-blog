@@ -1,3 +1,4 @@
+{% load blog_tags %}
 {% load static %}
 <!DOCTYPE html>
 <html>
@@ -15,6 +16,7 @@
   <div id="sidebar">
     <h2>Blog title</h2>
     <p>Blog subtitle.</p>
+    <p>I've written {% total_posts %} posts so far.</p>
   </div>
 </body>
 

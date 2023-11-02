@@ -6,4 +6,4 @@ register = template.Library()
 
 @register.simple_tag
 def total_posts():
-    return Post.objects.filter(status='PB')
+    return Post.objects.filter(status='PB').count()
