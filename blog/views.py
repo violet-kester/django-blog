@@ -1,6 +1,6 @@
 from .models import Post
 from .forms import EmailPostForm, CommentForm, SearchForm
-from django.contrib.postgres.search import SearchVector
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404
@@ -55,7 +55,7 @@ def post_detail(request, year, month, day, post):
        - `post` - The Post object.
        - `comments` - A QuerySet of related comment objects.
        - `form` - A CommentForm instance for posting new comments.
-       - `similar_posts` - A QuerySet of recommended Posts sharing the same tags.
+       - `similar_posts` - A QuerySet of recommended Posts sharing tags.
     """
 
     post = get_object_or_404(Post,
@@ -154,7 +154,15 @@ def post_comment(request, post_id):
 
 
 def post_search(request):
-    """Search for blog posts by query."""
+    """Renders a template of blog posts matching a query.
+
+       Context variables:
+
+       - `form` - A SearchForm instance for entering a query.
+       - `query` - The query string entered by the user.
+       - `results` - A QuerySet of Post objects that match the query by title
+                     or body, ordered by relevance.
+    """
 
     form = SearchForm()
     query = None
@@ -164,9 +172,17 @@ def post_search(request):
         form = SearchForm(request.GET)
         if form.is_valid():
             query = form.cleaned_data['query']
+            # create a search vector based on title and body fields of posts
+            search_vector = SearchVector('title', 'body')
+            # create a search query based on the user's input
+            search_query = SearchQuery(query)
+            # use the search vector and query to filter posts by status
+            # annotate posts with a search rank based on relevance
+            # order posts by descending rank value
             results = Post.objects.filter(status='PB').annotate(
-                search=SearchVector('title', 'body'),
-            ).filter(search=query)
+                search=search_vector,
+                rank=SearchRank(search_vector, search_query)
+            ).filter(search=search_query).order_by('-rank')
 
     return render(request,
                   'blog/post/search.html',
