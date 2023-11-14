@@ -37,7 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'django.contrib.postgres',
+    'crispy_forms',
+    'crispy_bootstrap5'
 ]
+
+# specifies a list of allowed template packs that django-crispy-forms can use
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+# defines the default template pack to use when rendering a form
+# sets a default styling framework for forms
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
