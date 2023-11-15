@@ -5,20 +5,31 @@
 <html>
 
 <head>
+
   <title>{% block title %}{% endblock %}</title>
+
+  <!-- bootstrap theme -->
   <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/darkly/bootstrap.min.css">
+  <!-- bootstrap icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <!-- custom stylesheet -->
   <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+
 </head>
 
 <body>
+
   <div class="container-fluid border border-danger">
     <div class="row mx-5 justify-content-center border border-warning">
 
       <!-- sidebar -->
-      <div class="col-md-3 col-lg-3 col-xl-2 m-1 border border-info">
-        <h2>
-          <a href="{% url 'blog:post_list' %}">Blog title</a></h2>
-        <p>Blog subtitle.</p>
+      <aside class="col-md-3 col-lg-3 col-xl-2 m-1 border border-info">
+        <header>
+          <h2>
+            <a href="{% url 'blog:post_list' %}">Blog title</a>
+          </h2>
+          <p>Blog subtitle.</p>
+        </header>
 
         <p>I've written {% total_posts %} posts so far.</p>
 
@@ -34,21 +45,19 @@
           </li>
           {% endfor %}
         </ul>
-      </div>
+      </aside>
 
       <!-- content -->
-      <div class="col-md-7 col-lg-7 col-xl-8 m-1 border border-green">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-11 col-xl-10">
-              {% block content %}
-              {% endblock %}
-            </div>
-          </div>
+      <main class="col-md-7 col-lg-7 col-xl-8 m-1 border border-green">
+        <div class="col-lg-11 col-xl-10 mx-auto">
+          {% block content %}
+          {% endblock %}
         </div>
+      </main>
 
-      </div>
     </div>
+    </main>
+
 </body>
 
 </html>
