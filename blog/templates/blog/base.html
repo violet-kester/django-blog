@@ -1,43 +1,48 @@
 {% load blog_tags %}
 {% load static %}
+
 <!DOCTYPE html>
 <html>
 
 <head>
   <title>{% block title %}{% endblock %}</title>
   <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/darkly/bootstrap.min.css">
-  <!-- <link href="{% static 'css/blog.css' %}" rel="stylesheet"> -->
+  <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 </head>
 
 <body>
+  <div class="container-fluid">
+    <div class="row">
 
-  <!-- content -->
-  <div id="content">
-    {% block content %}
-    {% endblock %}
+      <!-- sidebar (on right for larger screens) -->
+      <div class="col-md-4 order-md-last">
+        <h2>Blog title</h2>
+        <p>Blog subtitle.</p>
+
+        <p>I've written {% total_posts %} posts so far.</p>
+
+        <h3>Latest posts</h3>
+        {% show_latest_posts 3 %}
+
+        <h3>My most commented posts</h3>
+        {% get_most_commented_posts as most_commented_posts %}
+        <ul>
+          {% for post in most_commented_posts %}
+          <li>
+            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- content (on left for larger screens) -->
+      <div class="col-md-8">
+        {% block content %}
+        {% endblock %}
+      </div>
+
+    </div>
   </div>
-
-  <!-- sidebar -->
-  <div id="sidebar">
-    <h2>Blog title</h2>
-    <p>Blog subtitle.</p>
-
-    <p>I've written {% total_posts %} posts so far.</p>
-
-    <h3>Latest posts</h3>
-    {% show_latest_posts 3 %}
-
-    <h3>My most commented posts</h3>
-    {% get_most_commented_posts as most_commented_posts %}
-    <ul>
-      {% for post in most_commented_posts %}
-      <li>
-        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
-
 </body>
 
 </html>
