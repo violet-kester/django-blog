@@ -28,7 +28,6 @@ There are no similar posts yet.
 <!-- comment section -->
 <div class="container-fluid text-center">
   <div class="row justify-content-center">
-
     <div class="col-lg-9">
 
       {% with comments.count as total_comments %}
@@ -37,7 +36,7 @@ There are no similar posts yet.
 
       <!-- comments -->
       {% for comment in comments %}
-      <div>
+      <div class="m-1 pt-3 pb-2 border-bottom border-white">
         <p>
           <span class="fw-bold">
             Comment {{ forloop.counter }} by {{ comment.name }}
@@ -47,16 +46,18 @@ There are no similar posts yet.
           </span>
         </p>
         {{ comment.body|linebreaks }}
-
-        {% empty %}
-        <p>There are no comments</p>
       </div>
+
+      {% empty %}
+      <p>There are no comments</p>
       {% endfor %}
 
-      <!-- new comment form -->
-      {% include "blog/post/includes/comment_form.html" %}
-    </div>
+      <!-- add new comment form -->
+      <div class="m-1 pt-3">
+        {% include "blog/post/includes/comment_form.html" %}
+      </div>
 
+    </div>
   </div>
 </div>
 
