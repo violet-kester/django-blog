@@ -5,9 +5,7 @@
 
 {% block content %}
 
-  <!-- logo -->
-  <h1>Blog title</h1>
-
+  <!-- if searching posts by tag -->
   {% if tag %}
   <h2>Posts tagged with "{{ tag.name }}"</h2>
   {% endif %}
