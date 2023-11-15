@@ -5,16 +5,18 @@
 
 {% block content %}
 
-<!-- post -->
-<section>
+<!-- post content -->
+<article>
   <h1>{{ post.title }}</h1>
   <p>
     <span class="fst-italic">Published {{ post.publish }}</span>
     by <span class="fw-bold">{{ post.author }}</span> |
-    <a href="{% url 'blog:post_share' post.id %}"> Share this post.</a>
+    <a href="{% url 'blog:post_share' post.id %}">
+      <i class="bi-share"></i> Share this post.
+    </a>
   </p>
   {{ post.body|markdown }}
-</section>
+</article>
 
 <!-- similar posts section -->
 <section>
@@ -31,12 +33,12 @@
 <!-- comments section -->
 <section>
 
-  <!-- section header -->
+  <!-- header -->
   {% with comments.count as total_comments %}
   <h2>{{ total_comments }} comment{{ total_comments|pluralize }}</h2>
   {% endwith %}
 
-  <!-- comments -->
+  <!-- comments list -->
   {% for comment in comments %}
 
   <div class="m-1 pt-3 pb-2 border-bottom border-white">
