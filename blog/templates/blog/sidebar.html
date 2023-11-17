@@ -1,16 +1,20 @@
 {% load blog_tags %}
 
 <header>
-  <h2>
-    <a href="{% url 'blog:post_list' %}">Blog title</a>
-  </h2>
-  <p>Blog subtitle.</p>
+  <h1>
+    <a href="{% url 'blog:homepage' %}">Blog title</a>
+  </h1>
+  <h5>Blog subtitle.</h5>
 </header>
 
 <!-- search form -->
 {% include './post/includes/search_form.html' %}
 
-<p>I've written {% total_posts %} posts so far.</p>
+<!-- description -->
+<p>Blog description.</p>
+<p>Nulla facilisi. Aliquam erat volutpat. Vivamus dapibus eros vel urna.</p>
+<p>Brief bio.</p>
+<!-- <p>I've written {% total_posts %} posts so far.</p> -->
 
 <!-- latest posts -->
 <h3>Latest posts</h3>
