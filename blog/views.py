@@ -10,19 +10,41 @@ from taggit.models import Tag
 from django.db.models import Count
 
 
+def homepage(request):
+    """
+    Blog homepage.
+
+    Context variables:
+        - `search_form`: An instance of SearchForm for handling search queries.
+    """
+
+    posts = Post.objects.all().filter(status='PB')
+    search_form = SearchForm()
+
+    return render(request, 'blog/index.html', {
+        'search_form': search_form,
+    })
+
+
 def post_list(request, tag_slug=None):
-    """Renders a template of all published posts in paginated form.
-       Optionally filters posts by tag slug URL parameter.
+    """
+    Post list view.
 
-       Context variables:
+    Renders a template displaying all published posts in paginated form.
+    Optionally filters posts by provided tag slug URL parameter.
 
-       - `posts` - A Page object containing a list of Post objects.
-       - `tag` - A Tag object if tag slug is provided, or None.
+    Parameters:
+        - (optional) `tag_slug`: The slug identifier of the tag to filter by.
 
+    Context variables:
+        - `posts`: A Page object containing a list of Post objects.
+        - `search_form`: An instance of SearchForm for handling search queries.
+        - `tag`: A Tag object if slug is provided, or None.
     """
 
     post_list = Post.objects.filter(status='PB')
     tag = None
+    search_form = SearchForm()
 
     # if tag_slug provided, filter posts by tag
     if tag_slug:
@@ -44,18 +66,29 @@ def post_list(request, tag_slug=None):
     return render(request,
                   'blog/post/list.html',
                   {'posts': posts,
-                   'tag': tag})
+                   'tag': tag,
+                   'search_form': search_form})
 
 
 def post_detail(request, year, month, day, post):
-    """Renders a template of a single published post.
+    """
+    Post detail view.
 
-       Context variables:
+    Renders a template displaying a single published post,
+    along with comments, a form for posting new comments,
+    and a list of recommended posts..
 
-       - `post` - The Post object.
-       - `comments` - A QuerySet of related comment objects.
-       - `form` - A CommentForm instance for posting new comments.
-       - `similar_posts` - A QuerySet of recommended Posts sharing tags.
+    Parameters:
+        - `year`: The year of the post's publication.
+        - `month`: The month of the post's publication.
+        - `day`: The day of the post's publication.
+        - `post`: The unique slug identifier of the post.
+
+    Context variables:
+       - `post`: The Post object representing the displayed post.
+       - `comments`: A QuerySet of active comment objects related to the post.
+       - `form`: An instance of the CommentForm for posting new comments.
+       - `similar_posts`: A QuerySet of recommended Posts sharing common tags with the post.
     """
 
     post = get_object_or_404(Post,
@@ -68,8 +101,10 @@ def post_detail(request, year, month, day, post):
     # active comments for this post
     comments = post.comments.filter(active=True)
 
-    # form for posting comments
-    form = CommentForm()
+    # new comment form
+    comment_form = CommentForm()
+    # search form
+    search_form = SearchForm()
 
     # list of similar, recommended posts
     post_tags_ids = post.tags.values_list('id', flat=True)
@@ -83,12 +118,13 @@ def post_detail(request, year, month, day, post):
                   'blog/post/detail.html',
                   {'post': post,
                    'comments': comments,
-                   'form': form,
+                   'comment_form': comment_form,
+                   'search_form': search_form,
                    'similar_posts': similar_posts})
 
 
 class PostListView(ListView):
-    """Alternative class-based post_list view."""
+    """Alternative class-based post list view."""
 
     # set queryset attribute to filter posts to display
     queryset = Post.objects.filter(status='PB')
@@ -104,7 +140,20 @@ class PostListView(ListView):
 
 
 def post_share(request, post_id):
-    """Shares a published post by email using a form."""
+    """
+    Shares a published post by email using a form.
+
+    Displays a form for entering sender and recipient details,
+    Sends an email recommendation with a link to the specified post.
+
+    Parameters:
+        - `post_id`: The ID of the post to share.
+
+    Context variables:
+        - `post`: The Post object to be shared.
+        - `form`: An instance of EmailPostForm.
+        - `sent`: A boolean indicating whether the email was successfully sent.
+    """
 
     post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
     sent = False
@@ -132,10 +181,21 @@ def post_share(request, post_id):
 
 @require_POST
 def post_comment(request, post_id):
-    """Create and save a comment for a published post."""
+    """
+    Create and save a comment for a published post.
+
+    Parameters:
+        - `post_id`: The ID of the post for which the comment is being created.
+
+    Context variables:
+        - `post`: The Post object for which the comment is created.
+        - `comment_form`: An instance of the CommentForm for entering new comments.
+        - `comment`: The newly created Comment object, or None if no comment was created.
+    """
 
     post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
     comment = None
+    comment_form = CommentForm()
 
     # instantiate form using submitted POST data when a comment is posted
     form = CommentForm(data=request.POST)
@@ -149,22 +209,22 @@ def post_comment(request, post_id):
 
     return render(request, 'blog/post/comment.html',
                   {'post': post,
-                   'form': form,
+                   'comment_form': comment_form,
                    'comment': comment})
 
 
 def post_search(request):
-    """Renders a template of blog posts matching a query.
+    """
+    Renders a template of blog posts matching a query.
 
-       Context variables:
-
-       - `form` - A SearchForm instance for entering a query.
-       - `query` - The query string entered by the user.
-       - `results` - A QuerySet of Post objects that match the query by title
-                     or body, ordered by relevance.
+    Context variables:
+        - `form` - A SearchForm instance for entering a query.
+        - `query` - The query string entered by the user.
+        - `results` - A QuerySet of Post objects that match the query by title
+                      or body, ordered by relevance.
     """
 
-    form = SearchForm()
+    search_form = SearchForm()
     query = None
     results = []
 
@@ -186,6 +246,6 @@ def post_search(request):
 
     return render(request,
                   'blog/post/search.html',
-                  {'form': form,
+                  {'search_form': search_form,
                    'query': query,
                    'results': results})
