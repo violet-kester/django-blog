@@ -4,6 +4,6 @@
 
 <form action="{% url 'blog:post_comment' post.id %}" method="POST">
   {% csrf_token %}
-  {{ form|crispy }}
+  {{ comment_form|crispy }}
   <p><input type="submit" value="Add comment"></p>
 </form>
