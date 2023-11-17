@@ -1,0 +1,6 @@
+{% load crispy_forms_tags %}
+
+<form method="get" action="{% url 'blog:post_search' %}" class="crispy-form">
+  {{ search_form|crispy }}
+  <input type="submit" value="Search">
+</form>
