@@ -1,0 +1,21 @@
+{% extends "blog/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Share a post{% endblock %}
+
+{% block content %}
+{% if sent %}
+
+<!-- email sent -->
+<h2>E-mail successfully sent</h2>
+<p>
+  "{{post.title}}" was successfully sent to {{ form.cleaned_data.to }}.
+</p>
+{% else %}
+
+<!-- form -->
+{% include "./forms/share_form.html" %}
+
+{% endif %}
+{% endblock %}

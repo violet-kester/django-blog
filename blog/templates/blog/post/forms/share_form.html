@@ -1,0 +1,19 @@
+{% load crispy_forms_tags %}
+
+<h2>Share "{{post.title}}" with a friend</h2>
+
+<div class="mt-4">
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <!-- {% for field in form %}
+        <div>
+          {{ field.errors }}
+          {{ field.label_tag }} {{ field }}
+        </div>
+      {% endfor %} -->
+    <button type="submit" class="btn btn-outline-primary mt-4">
+      <i class="bi bi-send mr-1"></i> Share this post
+    </button>
+  </form>
+</div>
