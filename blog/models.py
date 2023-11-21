@@ -18,6 +18,8 @@ class Post(models.Model):
                                on_delete=models.CASCADE,
                                related_name='blog_posts')
     body = models.TextField()
+    image = models.ImageField(upload_to='blog/images/post',
+                              default='static/images/post/post_default_image.png')
     # TODO: debug publish date timezone/url issue
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
@@ -47,6 +49,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+
     post = models.ForeignKey(Post,
                              on_delete=models.CASCADE,
                              related_name='comments')

@@ -4,28 +4,31 @@ from .models import Post, Comment
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    # set columns to be displayed
+    # columns to be displayed
     list_display = ['id', 'title', 'slug', 'author', 'publish', 'status']
 
-    # set column filters
+    # column filters
     list_filter = ['status', 'created', 'publish', 'author']
 
-    # set search fields
+    # fields to be displayed in the post edit form
+    fields = ['title', 'slug', 'author', 'body', 'image', 'publish', 'status']
+
+    # search fields
     search_fields = ['title', 'body']
 
     # prepopulate slug field based on title
     prepopulated_fields = {'slug': ('title',)}
 
-    # use text input instead of dropdown menu for author field
+    # text input instead of dropdown menu for author field
     # helpful for large user bases
     raw_id_fields = ['author']
 
-    # add date-based nav bar
+    # date-based nav bar
     # useful for filtering posts by year, month, and day
     date_hierarchy = 'publish'
 
     # order columns by status and publish by default
-    ordering = ['status', 'publish']
+    ordering = ['-status', '-publish']
 
 
 @admin.register(Comment)
