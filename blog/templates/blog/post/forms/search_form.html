@@ -1,13 +1,13 @@
 {% load crispy_forms_tags %}
 <div class="mt-4">
-  <form method="get" action="{% url 'blog:post_search' %}" class="crispy-form">
+  <form method="get" action="{% url 'blog:post_search' %}">
     <div class="row align-items-start">
-      <div class="col col-md-12 pr-2 px-md-3">
+      <div class="col pr-2">
         {{ search_form.query|as_crispy_field }}
       </div>
-      <div class="col-auto pl-2 px-md-3">
+      <div class="col-auto pl-2">
         <button type="submit" class="btn btn-outline-primary">
-          <i class="bi bi-search"></i> Search
+          <i class="bi bi-search"></i>
         </button>
       </div>
     </div>
