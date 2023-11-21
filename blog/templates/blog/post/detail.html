@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+
 {% load blog_tags %}
 
 {% block title %}{{ post.title }}{% endblock %}
@@ -8,7 +9,7 @@
 <!-- post content -->
 <article>
   <h1>{{ post.title }}</h1>
-  <p>
+  <p class="mb-5">
     <span class="fst-italic">Published {{ post.publish }}</span>
     by <span class="fw-bold">{{ post.author }}</span> |
     <a href="{% url 'blog:post_share' post.id %}">
@@ -40,7 +41,7 @@
 
   <!-- comments list -->
   {% for comment in comments %}
-  <div class="mb-3 border-bottom border-white">
+  <div class="my-4 pb-2 border-bottom border-secondary">
     <p>
       <span class="fw-bold">
         Comment {{ forloop.counter }} by {{ comment.name }}
