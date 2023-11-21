@@ -18,12 +18,7 @@ def homepage(request):
         - `search_form`: An instance of SearchForm for handling search queries.
     """
 
-    posts = Post.objects.all().filter(status='PB')
-    search_form = SearchForm()
-
-    return render(request, 'blog/index.html', {
-        'search_form': search_form,
-    })
+    return render(request, 'blog/index.html')
 
 
 def post_list(request, tag_slug=None):
@@ -44,7 +39,6 @@ def post_list(request, tag_slug=None):
 
     post_list = Post.objects.filter(status='PB')
     tag = None
-    search_form = SearchForm()
 
     # if tag_slug provided, filter posts by tag
     if tag_slug:
@@ -65,9 +59,7 @@ def post_list(request, tag_slug=None):
 
     return render(request,
                   'blog/post/list.html',
-                  {'posts': posts,
-                   'tag': tag,
-                   'search_form': search_form})
+                  {'posts': posts, 'tag': tag})
 
 
 def post_detail(request, year, month, day, post):
@@ -103,8 +95,6 @@ def post_detail(request, year, month, day, post):
 
     # new comment form
     comment_form = CommentForm()
-    # search form
-    search_form = SearchForm()
 
     # list of similar, recommended posts
     post_tags_ids = post.tags.values_list('id', flat=True)
@@ -119,7 +109,6 @@ def post_detail(request, year, month, day, post):
                   {'post': post,
                    'comments': comments,
                    'comment_form': comment_form,
-                   'search_form': search_form,
                    'similar_posts': similar_posts})
 
 
