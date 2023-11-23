@@ -11,7 +11,7 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ['status', 'created', 'publish', 'author']
 
     # fields to be displayed in the post edit form
-    fields = ['title', 'slug', 'author', 'body', 'image', 'publish', 'status']
+    fields = ['title', 'slug', 'author', 'body', 'thumbnail', 'publish', 'status']
 
     # search fields
     search_fields = ['title', 'body']
