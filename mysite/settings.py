@@ -137,6 +137,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 # Email server configuration
 
 EMAIL_HOST = 'smtp.gmail.com'
@@ -148,5 +149,5 @@ EMAIL_USE_TLS = True
 
 # URL and path to serve user-uploaded media files
 
-MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = ''
+MEDIA_ROOT = BASE_DIR / ''
