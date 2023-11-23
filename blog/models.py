@@ -19,7 +19,7 @@ class Post(models.Model):
                                related_name='blog_posts')
     body = models.TextField()
     thumbnail = models.ImageField(upload_to='blog/static/images/thumbnails/',
-                              default='static/images/post_default_thumbnail.png')
+                              default='blog/static/images/thumbnails/post_default_thumbnail.png')
     # TODO: debug publish date timezone/url issue
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
