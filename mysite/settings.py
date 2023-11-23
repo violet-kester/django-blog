@@ -131,14 +131,22 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email server configuration
+
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'kester.violet.j@gmail.com'
 EMAIL_HOST_PASSWORD = os.environ.get('GMAIL_APP_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
+# URL and path to serve user-uploaded media files
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
