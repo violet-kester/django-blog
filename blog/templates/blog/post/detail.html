@@ -26,20 +26,17 @@
   {% for post in similar_posts %}
   <div class="d-flex flex-row">
     <a href="{{ post.get_absolute_url }}">
-      <div class="card" style="width: 18rem;">
+      <div class="card" style="width: 17rem;">
         <img src="{{ post.thumbnail.url }}" class="card-img-top" alt="{{ post.title }}">
         <div class="card-body">
           <h5 class="card-title">{{ post.title }}</h5>
-          <p class="card-text text-white">
+          <p class="card-text">
             {{ post.body|truncatewords_html:10 }}
           </p>
         </div>
       </div>
     </a>
   </div>
-  <!-- <p>
-      <a href="{{ post.get_absolute_url }}"></a>
-    </p> -->
   {% empty %}
   There are no similar posts yet.
   {% endfor %}
