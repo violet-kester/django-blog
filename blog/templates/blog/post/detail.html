@@ -6,34 +6,42 @@
 
 {% block content %}
 
-<!-- post content -->
-<article>
+<!-- post content ------------------------------------------------------->
+
+<article class="mb-5 pb-1">
+
   <h1>{{ post.title }}</h1>
-  <p class="mb-5">
-    <span class="text-muted">
-      Published {{ post.publish }} by {{ post.author }} |
+
+  <div class="mb-5 pb-4 border-bottom border-secondary">
+    <span class="d-block mb-2 text-muted">
+      <i class="bi-calendar-event"></i>
+      Published {{ post.publish }} by {{ post.author }}
     </span>
-    <a href="{% url 'blog:post_share' post.id %}">
-      <i class="bi-share"></i> Share this post.
+    <a href="{% url 'blog:post_share' post.id %}" class="d-block mb-2">
+      <i class="bi-share"></i> Share this post
     </a>
-  </p>
+  </div>
+
   {{ post.body|markdown }}
+
 </article>
 
-<!-- similar posts section -->
-<section>
-  <h2 class="mb-3">Similar posts</h2>
+<!-- similar posts section ---------------------------------------------->
 
-  <div class="row justify-content-around">
+<section class="mb-md-5">
+
+  <h2 class="mb-4">Similar posts</h2>
+
+  <div class="row justify-content-center">
     {% for post in similar_posts|slice:":3" %}
-    <div class="col-12 col-md-4 my-3">
+    <div class="col-12 col-md-4 p-4 mb-5 mb-md-0">
       <a href="{{ post.get_absolute_url }}">
         <div class="card">
           <img src="{{ post.thumbnail.url }}" class="card-img-top p-4 thumbnail-image" alt="{{ post.title }}">
-          <div class="card-body">
+          <div class="card-body p-4">
             <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">
-              {{ post.body|truncatewords_html:10 }}
+            <p class="card-text font-size-sm">
+              {{ post.body|truncatewords_html:100 }}
             </p>
           </div>
         </div>
@@ -43,28 +51,30 @@
     There are no similar posts yet.
     {% endfor %}
   </div>
+
 </section>
 
-<!-- comments section -->
+<!-- comments section --------------------------------------------------->
+
 <section>
 
   <!-- header -->
   {% with comments.count as total_comments %}
-  <h2>{{ total_comments }} comment{{ total_comments|pluralize }}</h2>
+  <h2 class="mb-4 pb-4 border-bottom border-secondary">{{ total_comments }} comment{{ total_comments|pluralize }}</h2>
   {% endwith %}
 
   <!-- comments list -->
   {% for comment in comments %}
   <div class="my-4 pb-2 border-bottom border-secondary">
     <p class="text-muted">
-      Comment {{ forloop.counter }} by {{ comment.name }}<br />
+      Comment {{ forloop.counter }} by <span class="text-primary">{{ comment.name }}</span><br />
       {{ comment.created }}
     </p>
     {{ comment.body|linebreaks }}
   </div>
 
   {% empty %}
-  <p>There are no comments</p>
+  <p class="mb-5">There are no comments</p>
 
   {% endfor %}
 

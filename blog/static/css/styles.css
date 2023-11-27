@@ -1,17 +1,59 @@
-button {
-    margin-bottom: 1rem;
+body {
+    letter-spacing: .04em;
 }
-ul {
-    padding-inline-start: 2rem;
-}
+
 h1 {
     font-family: 'Homemade Apple';
-    margin-bottom: 1.75rem;
+    letter-spacing: 0;
+    margin-bottom: 2rem;
 }
-article, section {
-    margin-bottom: 2.75rem;
+
+ul {
+    padding-inline-start: 0;
+    margin-top: 2rem;
 }
+
+ul li {
+    margin: 1rem 0;
+    list-style-type: none;
+}
+
+/* Cards --------------------------------------------------------- */
+
 .thumbnail-image {
-    max-width: 300px;
+    max-width: 250px;
     margin: auto;
+}
+
+.card {
+    max-height: 375px;
+    opacity: 45%;
+    transition: opacity 0.3s ease-in-out;
+    overflow-y: hidden;
+    /* Vendor prefixes for mask-image */
+    -webkit-mask-image: linear-gradient(to top, transparent, #1a1a1a 100px);
+    mask-image: linear-gradient(to top, transparent, #1a1a1a 100px);
+    /* Fallback for IE */
+    background: linear-gradient(to top, transparent, #1a1a1a 100px);
+}
+
+.card:hover {
+    opacity: 100%;
+    overflow-y: scroll;
+    /* Hide scrollbar for IE and Edge */
+    -ms-overflow-style: none;
+    /* Firefox */
+    scrollbar-width: none;
+}
+
+.card::-webkit-scrollbar {
+    /* Hide scrollbar for Chrome, Safari, and Opera  */
+    display: none;
+}
+
+.card-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Limit the height to one line */
+    /* white-space: nowrap; */
 }
