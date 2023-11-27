@@ -29,13 +29,13 @@
     <div class="row mx-5 justify-content-center border border-warning">
 
       <!-- sidebar -->
-      <aside class="col-lg-3 m-1 p-5 text-center text-lg-left border border-info">
+      <aside class="col-12 col-lg-3 m-1 p-5 text-center text-lg-left border border-info">
         {% include './sidebar.html' %}
       </aside>
 
       <!-- content -->
-      <main class="col-lg-8 m-1 pt-5 pb-4 px-5 d-flex align-items-center justify-content-center order-lg-first border border-green">
-        <div>
+      <main class="col-12 col-lg-8 m-1 p-5 d-flex align-items-center justify-content-center order-lg-first border border-green">
+        <div class="p-5">
           {% block content %}
           {% endblock %}
         </div>
