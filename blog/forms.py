@@ -6,7 +6,8 @@ class EmailPostForm(forms.Form):
     name = forms.CharField(max_length=50, label="Your name")
     email = forms.EmailField(label="Your email address")
     to = forms.EmailField(label="Recipient's email address")
-    comments = forms.CharField(required=False,
+    comments = forms.CharField(label="Add a message",
+                               required=False,
                                widget=forms.Textarea(attrs={'rows': 5}))
 
 
