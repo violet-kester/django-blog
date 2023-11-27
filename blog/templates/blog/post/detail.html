@@ -24,7 +24,7 @@
 <section>
   <h2 class="mb-3">Similar posts</h2>
 
-  <div class="row justify-content-between">
+  <div class="row justify-content-around">
     {% for post in similar_posts|slice:":3" %}
     <div class="col-12 col-md-4 my-3">
       <a href="{{ post.get_absolute_url }}">
