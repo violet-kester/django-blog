@@ -11,3 +11,7 @@ h1 {
 article, section {
     margin-bottom: 2.75rem;
 }
+.thumbnail-image {
+    max-width: 300px;
+    margin: auto;
+}
