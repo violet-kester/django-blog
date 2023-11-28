@@ -3,9 +3,11 @@
 <h3>Add a new comment</h3>
 
 <form action="{% url 'blog:post_comment' post.id %}" method="POST">
-  {% csrf_token %}
-  {{ comment_form|crispy }}
-  <button type="submit" class="btn btn-outline-primary mt-4">
-    Add comment
+  <div class="my-5">
+    {% csrf_token %}
+    {{ comment_form|crispy }}
+  </div>
+  <button type="submit" class="btn btn-outline-primary">
+    <i class="bi-pencil-square mr-1"></i> Add comment
   </button>
 </form>
