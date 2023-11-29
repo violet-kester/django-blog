@@ -15,6 +15,7 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['name', 'body']
+        labels = {'name': 'Your name', 'body': 'Comment'}
 
 
 class SearchForm(forms.Form):
