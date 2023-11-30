@@ -1,0 +1,16 @@
+{% load static %}
+
+<nav class="navbar navbar-dark fixed-top">
+  <div class="container-fluid justify-content-between px-2">
+
+    <a class="navbar-brand" href="{% url 'blog:homepage' %}">
+      <img src="{% static 'images/logo_square_300px.png' %}" alt="Bootstrap" height="35">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar"
+      aria-expanded="true" aria-label="Toggle sidebar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+  </div>
+</nav>
