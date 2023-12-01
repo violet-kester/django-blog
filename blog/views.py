@@ -238,3 +238,11 @@ def post_search(request):
                   {'search_form': search_form,
                    'query': query,
                    'results': results})
+
+
+def post_search_form(request):
+    """
+    Renders a search form to be toggled in the navbar.
+    """
+
+    return render(request, 'blog/post/forms/search_form.html')
