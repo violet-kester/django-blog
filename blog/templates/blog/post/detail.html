@@ -6,82 +6,83 @@
 
 {% block content %}
 
-  <!-- post content ------------------------------------------------------->
+<!-- post content ------------------------------------------------------->
 
-  <article class="mb-5 pb-3">
+<article class="mb-5 pb-3">
 
-    <h1>{{ post.title }}</h1>
+  <h1>{{ post.title }}</h1>
 
-    <div class="mb-5 pb-4 border-bottom border-secondary">
-      <span class="d-block mb-2 text-muted">
-        <i class="bi-calendar-event mr-1"></i>
-        Published {{ post.publish }} by {{ post.author }}
-      </span>
-      <a href="{% url 'blog:post_share' post.id %}" class="d-block mb-2">
-        <i class="bi-share mr-1"></i> Share this post
+  <div class="mb-5 pb-3 border-bottom border-secondary">
+    <span class="d-block mb-2 text-muted">
+      <i class="bi-calendar-event mr-1"></i>
+      Published {{ post.publish }} by {{ post.author }}
+    </span>
+    <a href="{% url 'blog:post_share' post.id %}" class="d-block mb-2">
+      <i class="bi-share mr-1"></i> Share this post
+    </a>
+  </div>
+
+  {{ post.body|markdown }}
+
+</article>
+
+<!-- similar posts section -------------------------------------------->
+
+<section class="mb-5">
+
+  <h2 class="mb-4">Similar posts</h2>
+
+  {% if similar_posts %}
+  <div class="row justify-content-center">
+    {% for post in similar_posts|slice:":3" %}
+    <div class="col-12 col-md-4 p-3 mb-5">
+      <a href="{{ post.get_absolute_url }}">
+        <div class="card p-2 p-md-0">
+          <img src="{{ post.thumbnail.url }}" class="card-img-top p-4 thumbnail-image" alt="{{ post.title }}">
+          <div class="card-body p-4">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">
+              {{ post.body|truncatewords_html:125 }}
+            </p>
+          </div>
+        </div>
       </a>
     </div>
-
-    {{ post.body|markdown }}
-
-  </article>
-
-  <!-- similar posts section ---------------------------------------------->
-
-  <section class="mb-5">
-
-    <h2 class="mb-4">Similar posts</h2>
-
-    <!-- TODO: change this to an if statement to center "no posts" text -->
-    <div class="row justify-content-center">
-      {% for post in similar_posts|slice:":3" %}
-      <div class="col-12 col-md-4 p-4 mb-5 mb-md-0">
-        <a href="{{ post.get_absolute_url }}">
-          <div class="card">
-            <img src="{{ post.thumbnail.url }}" class="card-img-top p-4 thumbnail-image" alt="{{ post.title }}">
-            <div class="card-body p-4">
-              <h5 class="card-title">{{ post.title }}</h5>
-              <p class="card-text font-size-sm">
-                {{ post.body|truncatewords_html:125 }}
-              </p>
-            </div>
-          </div>
-        </a>
-      </div>
-      {% empty %}
-      There are no similar posts yet.
-      {% endfor %}
-    </div>
-
-  </section>
-
-  <!-- comments section --------------------------------------------------->
-
-  <section class="mb-5">
-
-    <!-- header -->
-    {% with comments.count as total_comments %}
-    <h2 class="mb-4 pb-4 border-bottom border-secondary">{{ total_comments }} comment{{ total_comments|pluralize }}</h2>
-    {% endwith %}
-
-    <!-- comments list -->
-    {% for comment in comments %}
-    <div class="my-4 pb-2 border-bottom border-secondary">
-      <p class="text-muted">
-        Comment {{ forloop.counter }} by <span class="text-primary">{{ comment.name }}</span><br />
-        {{ comment.created }}
-      </p>
-      {{ comment.body|linebreaks }}
-    </div>
-
-    {% empty %}
-    <p class="mb-5">There are no comments</p>
-
     {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-muted">There are no similar posts yet.</p>
+  {% endif %}
 
-    <!-- new comment form -->
-    <div class="pt-1">{% include "./forms/comment_form.html" %}</div>
+</section>
 
-  </section>
+<!-- comments section ------------------------------------------------->
+
+<section class="mb-5">
+
+  <!-- header -->
+  {% with comments.count as total_comments %}
+  <h2 class="mb-4 pb-4 border-bottom border-secondary">{{ total_comments }} comment{{ total_comments|pluralize }}</h2>
+  {% endwith %}
+
+  <!-- comments list -->
+  {% for comment in comments %}
+  <div class="my-4 pb-2 border-bottom border-secondary">
+    <p class="text-muted">
+      Comment {{ forloop.counter }} by <span class="text-primary">{{ comment.name }}</span><br />
+      {{ comment.created }}
+    </p>
+    {{ comment.body|linebreaks }}
+  </div>
+
+  {% empty %}
+  <p class="mb-5">There are no comments</p>
+
+  {% endfor %}
+
+  <!-- new comment form -->
+  <div class="pt-1">{% include "./forms/comment_form.html" %}</div>
+
+</section>
 
 {% endblock %}
