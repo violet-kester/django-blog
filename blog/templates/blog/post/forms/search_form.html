@@ -1,14 +1,14 @@
-{% load crispy_forms_tags %}
-
-<form method="get" action="{% url 'blog:post_search' %}">
-  <div class="row align-items-center">
-    <div class="col px-1">
-      <input type="text" name="query" class="form-control" placeholder="Search posts...">
-    </div>
-    <div class="col-auto px-1">
-      <button type="submit" class="btn btn-outline-primary">
+<div id="searchFormContainer" class="col pr-1">
+  <form method="get" action="{% url 'blog:post_search' %}">
+    <div class="input-group">
+      <input
+        type="text"
+        name="query"
+        class="form-control mr-1"
+        placeholder="Search posts...">
+      <button type="submit" class="btn btn-outline-primary ml-2">
         <i class="bi-search"></i>
       </button>
     </div>
-  </div>
-</form>
+  </form>
+</div>
