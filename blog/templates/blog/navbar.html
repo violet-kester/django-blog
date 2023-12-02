@@ -1,25 +1,25 @@
 {% load static %}
 
-<nav class="navbar navbar-dark fixed-top">
-  <div class="container-fluid justify-content-between align-items-center px-2">
+<nav class="navbar navbar-dark fixed-top justify-content-center glassy">
+  <div class="row container-fluid justify-content-between p-2">
 
+    <!-- Logo -->
     <a class="navbar-brand" href="{% url 'blog:homepage' %}">
       <img src="{% static 'images/logo_square_300px.png' %}" alt="Logo" height="35px">
     </a>
 
-    <div id="navbarSearchFormContainer"></div>
-
-    <div class="d-flex align-items-center">
+    <div class="d-flex col-9 col-md-7 col-lg-4 col-xl-3 justify-content-end px-0">
+      <!-- Toggle search form -->
       <button
-        class="navbar-toggler"
-        hx-trigger="click"
+        id="searchFormContainer"
+        class="navbar-toggler mx-2"
         hx-get="{% url 'blog:post_search_form' %}"
         hx-swap="outerHTML"
-        hx-target="#navbarSearchFormContainer"
-        aria-expanded="true"
+        aria-expanded="false"
         aria-label="Toggle search form">
           <i class="bi-search"></i>
       </button>
+      <!-- Toggle sidebar -->
       <button
         class="navbar-toggler"
         type="button"
