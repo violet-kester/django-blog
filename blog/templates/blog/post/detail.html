@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<!-- post content ------------------------------------------------------->
+<!-- Post content ------------------------------>
 
 <article class="mb-5 pb-3">
 
@@ -26,19 +26,22 @@
 
 </article>
 
-<!-- similar posts section -------------------------------------------->
+<!-- Similar posts section --------------------->
 
 <section class="mb-5">
 
   <h2 class="mb-4">Similar posts</h2>
 
   {% if similar_posts %}
-  <div class="row justify-content-center">
+  <div class="row justify-content-center justify-content-md-between justify-content-lg-center justify-content-xl-between">
     {% for post in similar_posts|slice:":3" %}
-    <div class="col-12 col-md-3 m-2 m-md-3 m-lg-5 mt-2 p-3">
+    <div class="col-12 col-md-3 col-lg-12 col-xl-3 mx-3 px-0 py-3">
       <a href="{{ post.get_absolute_url }}">
         <div class="card">
-          <img src="{{ post.thumbnail.url }}" class="card-img-top pt-5 pb-3 px-4 thumbnail-image" alt="{{ post.title }}">
+          <img
+            src="{{ post.thumbnail.url }}"
+            class="mx-auto card-img-top pt-5 pb-3 px-4 thumbnail-image"
+            alt="{{ post.title }}">
           <div class="card-body p-4">
             <h5 class="card-title">{{ post.title }}</h5>
             <p class="card-text">
@@ -56,16 +59,18 @@
 
 </section>
 
-<!-- comments section ------------------------------------------------->
+<!-- Comments section -------------------------->
 
 <section>
 
-  <!-- header -->
+  <!-- Header -->
   {% with comments.count as total_comments %}
-  <h2 class="mb-4 pb-4 border-bottom border-secondary">{{ total_comments }} comment{{ total_comments|pluralize }}</h2>
+  <h2 class="mb-4 pb-4 border-bottom border-secondary">
+    {{ total_comments }} comment{{ total_comments|pluralize }}
+  </h2>
   {% endwith %}
 
-  <!-- comments list -->
+  <!-- Comments list -->
   <div class="mb-5">
     {% for comment in comments %}
     <div class="my-4 pb-2 border-bottom border-secondary">
@@ -80,7 +85,7 @@
     {% endfor %}
   </div>
 
-  <!-- new comment form -->
+  <!-- New comment form ------------------------>
   <div>{% include "./forms/comment_form.html" %}</div>
 
 </section>
