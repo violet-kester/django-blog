@@ -33,8 +33,7 @@ figcaption {
     text-align: center;
     font-style: italic;
     margin-bottom: 1.25rem;
-    color: #8a8a8a;
-    /* light */
+    color: #8a8a8a; /* light */
 }
 
 /* Typography -------------------------------- */
@@ -143,9 +142,6 @@ h1 {
 
 /* Medium+ screens */
 /* @media (min-width: 768px) {
-    #sidebar {
-        right: 0;
-    }
 } */
 
 /* Large+ screens */
