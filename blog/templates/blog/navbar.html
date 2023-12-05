@@ -9,17 +9,36 @@
     </a>
 
     <div class="d-flex col-9 col-md-7 col-lg-4 col-xl-3 justify-content-end px-0">
+      <div id="searchFormContainer"></div>
       <!-- Toggle search form -->
       <button
+        type="button"
+        class="btn btn-outline-primary ml-2"
+        hx-get="{% url 'blog:post_search_form' %}"
+        hx-swap="outerHTML"
+        hx-target="#searchFormContainer"
+        aria-label="Toggle search form">
+          <i class="bi-search"></i>
+      </button>
+      <!-- <button
         id="searchFormContainer"
         class="navbar-toggler mx-2"
         hx-get="{% url 'blog:post_search_form' %}"
         hx-swap="outerHTML"
         aria-expanded="false"
         aria-label="Toggle search form">
-          <i class="bi-search"></i>
-      </button>
+        <i class="bi-search"></i>
+      </button> -->
       <!-- Toggle sidebar -->
+      <!-- <button
+        type="button"
+        class="btn btn-outline-primary ml-2"
+        hx-get="{% url 'blog:sidebar' %}?show={% if show_sidebar == 'true' %}false{% else %}true{% endif %}"
+        hx-target="#sidebar"
+        hx-swap="outerHTML"
+        aria-label="Toggle sidebar">
+        <i class="bi-list"></i>
+      </button> -->
       <button
         class="navbar-toggler"
         type="button"
