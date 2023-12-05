@@ -107,12 +107,11 @@ h1 {
 
 .thumbnail-image {
     max-width: 250px;
-    margin: auto;
 }
 
 .card {
+    min-width: 140px;
     max-height: 375px;
-    min-width: 175px;
     overflow: hidden;
     opacity: 45%;
     transition: opacity 0.3s ease-in-out;
