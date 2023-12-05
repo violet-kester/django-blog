@@ -33,28 +33,27 @@ def post_list(request, tag_slug=None):
 
     Context variables:
         - `posts`: A Page object containing a list of Post objects.
-        - `search_form`: An instance of SearchForm for handling search queries.
         - `tag`: A Tag object if slug is provided, or None.
     """
 
     post_list = Post.objects.filter(status='PB')
     tag = None
 
-    # if tag_slug provided, filter posts by tag
+    # If tag_slug provided, filter posts by tag
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
         post_list = post_list.filter(tags__in=[tag])
 
-    # paginate posts - 3 posts per page
+    # Paginate posts - 3 posts per page
     paginator = Paginator(post_list, 3)
     page_number = request.GET.get('page', 1)
     try:
         posts = paginator.page(page_number)
     except PageNotAnInteger:
-        # if page not an integer, show first page
+        # If page not an integer, show first page
         posts = paginator.page(1)
     except EmptyPage:
-        # if page number out of range, show last page
+        # If page number out of range, show last page
         posts = paginator.page(paginator.num_pages)
 
     return render(request,
@@ -90,13 +89,13 @@ def post_detail(request, year, month, day, post):
                              publish__month=month,
                              publish__day=day)
 
-    # active comments for this post
+    # Active comments for this post
     comments = post.comments.filter(active=True)
 
-    # new comment form
+    # New comment form
     comment_form = CommentForm()
 
-    # list of similar, recommended posts
+    # List of similar, recommended posts
     post_tags_ids = post.tags.values_list('id', flat=True)
     similar_posts = Post.objects.filter(status='PB')\
                                 .filter(tags__in=post_tags_ids)\
@@ -115,16 +114,16 @@ def post_detail(request, year, month, day, post):
 class PostListView(ListView):
     """Alternative class-based post list view."""
 
-    # set queryset attribute to filter posts to display
+    # Set queryset attribute to filter posts to display
     queryset = Post.objects.filter(status='PB')
 
-    # set context_object_name attribute to be referenced in template
+    # Set context_object_name attribute to be referenced in template
     context_object_name = 'posts'
 
-    # enable pagination - 3 posts per page
+    # Enable pagination - 3 posts per page
     paginate_by = 3
 
-    # specify template to render the view
+    # Specify template to render the view
     template_name = 'blog/post/list.html'
 
 
@@ -207,36 +206,36 @@ def post_search(request):
     Renders a template of blog posts matching a query.
 
     Context variables:
-        - `form` - A SearchForm instance for entering a query.
         - `query` - The query string entered by the user.
         - `results` - A QuerySet of Post objects that match the query by title
                       or body, ordered by relevance.
     """
 
-    search_form = SearchForm()
     query = None
     results = []
 
-    if 'query' in request.GET:
-        form = SearchForm(request.GET)
+    # Check if 'query' string is in POST data
+    if 'query' in request.POST:
+        # Create a SearchForm instance using POST data
+        form = SearchForm(request.POST)
+        # Validate form using rules defined in SearchForm class
         if form.is_valid():
+            # Get cleaned query data from the form
+            # The cleaned_data dictionary contains the validated form data
             query = form.cleaned_data['query']
-            # create a search vector based on title and body fields of posts
+            # Create a search vector based on title and body fields of posts
             search_vector = SearchVector('title', 'body')
-            # create a search query based on the user's input
-            search_query = SearchQuery(query)
-            # use the search vector and query to filter posts by status
-            # annotate posts with a search rank based on relevance
-            # order posts by descending rank value
+            # Use the search vector and query to filter posts by status,
+            # annotate posts with a search rank based on relevance,
+            # and order posts by descending rank value
             results = Post.objects.filter(status='PB').annotate(
                 search=search_vector,
-                rank=SearchRank(search_vector, search_query)
-            ).filter(search=search_query).order_by('-rank')
+                rank=SearchRank(search_vector, query)
+            ).filter(search=query).order_by('-rank')
 
     return render(request,
                   'blog/post/search.html',
-                  {'search_form': search_form,
-                   'query': query,
+                  {'query': query,
                    'results': results})
 
 
@@ -246,3 +245,18 @@ def post_search_form(request):
     """
 
     return render(request, 'blog/post/forms/search_form.html')
+
+
+def sidebar(request):
+    """
+    Renders sidebar content to be toggled in the navbar.
+    """
+
+    # show_sidebar = request.GET['show']
+    # if show_sidebar == 'true':
+    #     show_sidebar = 'false'
+    # else:
+    #     show_sidebar = 'true'
+    # context = {'show_sidebar': show_sidebar}
+
+    return render(request, 'blog/sidebar.html')
