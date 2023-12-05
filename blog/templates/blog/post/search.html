@@ -1,48 +1,43 @@
-{% extends 'blog/base.html' %}
 {% load blog_tags %}
 
-{% block title %}Search{% endblock %}
-
-{% block content %}
-
 {% if query %}
+
 <!-- Search results -->
 <h1>Posts containing "{{query}}"</h1>
 
 <div>
 
   <!-- Total results -->
-  <h5 class="mb-0 text-muted">
+  <h6 class="mb-0 text-muted">
     {% with results.count as total_results %}
     Found {{ total_results }} result{{ total_results|pluralize }}:
     {% endwith %}
-  </h5>
+  </h6>
 
   <!-- Posts -->
   {% for post in results %}
-  <div class="row px-0 py-3 p-md-4 border-bottom border-secondary justify-content-between align-items-center">
-
+  <div class="row px-0 py-2 p-md-4 border-bottom border-secondary justify-content-between align-items-center">
     <div class="col-3 px-0 p-sm-3 p-md-4">
       <a href="{{ post.get_absolute_url }}">
         <img src="{{ post.thumbnail.url }}" class="card-img-top thumbnail-image" alt="{{ post.title }}">
       </a>
     </div>
 
-    <div class="col-8 pt-2 pb-0">
-      <h3>
+    <div class="col-8 py-3">
+      <h3 class="mb-3">
         <a href="{{ post.get_absolute_url }}">
           {{ post.title }}
         </a>
       </h3>
-      {{ post.body|markdown|truncatewords_html:18 }}
+      {{ post.body|truncatewords_html:18 }}
     </div>
-
   </div>
+
+  <!-- Empty results -->
   {% empty %}
-  <p>There are no results for your query.</p>
+  <p class="pt-2">There are no results for your query.</p>
   {% endfor %}
 
 </div>
-{% endif %}
 
-{% endblock %}
+{% endif %}

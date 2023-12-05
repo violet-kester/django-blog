@@ -66,19 +66,19 @@
   {% endwith %}
 
   <!-- comments list -->
-  {% for comment in comments %}
-  <div class="my-4 pb-2 border-bottom border-secondary">
-    <p class="text-muted">
-      Comment {{ forloop.counter }} by <span class="text-primary">{{ comment.name }}</span><br />
-      {{ comment.created }}
-    </p>
-    {{ comment.body|linebreaks }}
+  <div class="mb-5">
+    {% for comment in comments %}
+    <div class="my-4 pb-2 border-bottom border-secondary">
+      <p class="text-muted">
+        Comment {{ forloop.counter }} by <span class="text-primary">{{ comment.name }}</span><br />
+        {{ comment.created }}
+      </p>
+      {{ comment.body|linebreaks }}
+    </div>
+    {% empty %}
+    <p class="text-muted">There are no comments yet.</p>
+    {% endfor %}
   </div>
-
-  {% empty %}
-  <p class="mb-5 text-muted">There are no comments yet.</p>
-
-  {% endfor %}
 
   <!-- new comment form -->
   <div>{% include "./forms/comment_form.html" %}</div>
