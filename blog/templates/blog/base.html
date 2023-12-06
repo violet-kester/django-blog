@@ -20,12 +20,14 @@
   <link href="{% static 'css/styles.css' %}" rel="stylesheet">
   <!-- Favicon -->
   <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
-  <!-- htmx -->
+  <!-- Htmx -->
   <script src="https://unpkg.com/htmx.org@1.9.8"
     integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr"
     crossorigin="anonymous"></script>
-  <!-- htmx - Enable view transitions -->
+  <!-- Htmx - enable view transitions -->
   <meta name="htmx-config" content='{"globalViewTransitions":true}'>
+  <!-- Hyperscript -->
+  <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
 </head>
 
 <body hx-boost="true">
@@ -35,11 +37,11 @@
     {% include './navbar.html' %}
 
     <!-- Sidebar ------------------------------->
-    <aside id="sidebar"></aside>
+    {% include './sidebar.html' %}
 
     <!-- Content ------------------------------->
     <main class="p-5 mt-5 mx-5">
-      <div id="content" class="container col-12 col-lg-7 col-xl-6 py-5 px-3 px-md-5">
+      <div id="content" class="container col-12 col-lg-7 col-xl-6 px-0 py-5 px-md-5">
         {% block content %}
         {% endblock %}
       </div>
