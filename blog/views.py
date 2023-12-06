@@ -237,26 +237,3 @@ def post_search(request):
                   'blog/post/search.html',
                   {'query': query,
                    'results': results})
-
-
-def post_search_form(request):
-    """
-    Renders a search form to be toggled in the navbar.
-    """
-
-    return render(request, 'blog/post/forms/search_form.html')
-
-
-def sidebar(request):
-    """
-    Renders sidebar content to be toggled in the navbar.
-    """
-
-    # show_sidebar = request.GET['show']
-    # if show_sidebar == 'true':
-    #     show_sidebar = 'false'
-    # else:
-    #     show_sidebar = 'true'
-    # context = {'show_sidebar': show_sidebar}
-
-    return render(request, 'blog/sidebar.html')
