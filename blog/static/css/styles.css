@@ -24,7 +24,7 @@ ul li {
 
 figure img {
     width: 100%;
-    padding: 1.25rem 2rem 1.75rem 2rem;
+    padding: 1rem 2rem 2rem 2rem;
     border-radius: 4rem;
 }
 
@@ -34,6 +34,10 @@ figcaption {
     font-style: italic;
     margin-bottom: 1.25rem;
     color: #8a8a8a; /* light */
+}
+
+.thumbnail-icon {
+    max-width: 5rem;
 }
 
 /* Typography -------------------------------- */
@@ -54,7 +58,7 @@ h3 {
 }
 
 h1 {
-    margin-bottom: 2.25rem;
+    margin-bottom: 3rem;
 }
 
 /* Effects and transitions ------------------- */
@@ -114,7 +118,7 @@ h1 {
 
 /* Cards ------------------------------------- */
 
-.thumbnail-image {
+.card img {
     max-width: 250px;
 }
 
