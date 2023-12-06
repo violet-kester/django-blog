@@ -1,25 +1,21 @@
+<!-- New version with htmx -->
 <form>
   {% csrf_token %}
   <input
-    type="search"
-    class="form-control"
-    name="query"
-    placeholder="Search posts..."
-    hx-post="{% url 'blog:post_search' %}"
-    hx-swap="innerHTML"
-    hx-target="#content"
-    hx-trigger="keyup changed delay:500ms, search">
+    type="search" class="form-control"
+    name="query" placeholder="Search posts..."
+    hx-post="{% url 'blog:post_search' %}" hx-swap="innerHTML"
+    hx-target="#content" hx-trigger="keyup changed delay:500ms, search">
 </form>
 
+<!-- Previous verison with Bootstrap only -->
 <!-- <form method="get" action="{% url 'blog:post_search' %}">
-    <div class="input-group">
-      <input
-        type="text"
-        name="query"
-        class="form-control mr-1"
-        placeholder="Search posts...">
-      <button type="submit" class="btn btn-outline-primary ml-2">
-        <i class="bi-search"></i>
-      </button>
-    </div>
-  </form> -->
+  <div class="input-group">
+    <input
+      type="text" name="query"
+      class="form-control mr-1" placeholder="Search posts...">
+    <button type="submit" class="btn btn-outline-primary ml-2">
+      <i class="bi-search"></i>
+    </button>
+  </div>
+</form> -->
