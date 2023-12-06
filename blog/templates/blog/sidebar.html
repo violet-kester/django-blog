@@ -1,7 +1,7 @@
 {% load blog_tags %}
 
-<aside id="sidebar" class="collapse show col-12 col-lg-3 mt-5 p-5 glassy position-fixed border border-secondary top-0">
-  <div class="container col-10 col-sm-6 col-lg-12 py-5 px-1 px-xl-5 text-center text-lg-right">
+<aside id="sidebar" class="glassy slide-up col-12 col-lg-3 mt-5 p-5 pr-lg-3 pr-xl-5 position-fixed top-0 border border-secondary">
+  <div class="container col-10 col-sm-6 col-lg-12 pt-3 pb-5 text-center text-lg-right">
 
     <!-- Header -->
     <header class="mb-5">
@@ -29,7 +29,7 @@
     </div>
 
     <!-- Most commented posts -->
-    <div class="mb-5 pb-5">
+    <div class="mb-2">
       <h3>Most commented</h3>
       {% get_most_commented_posts as most_commented_posts %}
       <ul class="mt-4">
