@@ -57,11 +57,7 @@ h1 {
     margin-bottom: 2.25rem;
 }
 
-/* Effects ----------------------------------- */
-
-.smooth {
-    transition: all 1s ease-in-out;
-}
+/* Effects and transitions ------------------- */
 
 .glassy {
     background-color: rgba(13, 13, 13, 0.5);
@@ -69,11 +65,25 @@ h1 {
     z-index: 1;
 }
 
+.fade-in {
+    transition: all .3s ease-in-out;
+    opacity: 1;
+}
+
 .fade-out {
+    transition: all .3s ease-in-out;
     opacity: 0;
 }
 
-.fade-in {
+.slide-up {
+    transition: all .6s ease-in-out;
+    height: 0;
+    opacity: 0;
+}
+
+.slide-down {
+    transition: all .6s ease-in-out;
+    height: 100vh;
     opacity: 1;
 }
 
@@ -98,8 +108,7 @@ h1 {
     top: 0;
 }
 
-#sidebar .container {
-    height: 100vh;
+#sidebar {
     overflow-y: scroll;
 }
 
@@ -110,7 +119,7 @@ h1 {
 }
 
 .card {
-    min-width: 140px;
+    min-width: 120px;
     max-height: 375px;
     overflow: hidden;
     opacity: 45%;
@@ -127,7 +136,7 @@ h1 {
 }
 
 .card-text {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
 }
 
 /* Limit the card title height to one line */
