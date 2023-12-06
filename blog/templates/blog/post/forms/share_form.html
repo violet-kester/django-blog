@@ -6,12 +6,6 @@
   <div class="my-5">
     {% csrf_token %}
     {{ form|crispy }}
-    <!-- {% for field in form %}
-        <div>
-          {{ field.errors }}
-          {{ field.label_tag }} {{ field }}
-        </div>
-      {% endfor %} -->
   </div>
   <button type="submit" class="btn btn-outline-primary">
     <i class="bi-send mr-1"></i> Share this post
