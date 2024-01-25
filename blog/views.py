@@ -12,10 +12,7 @@ from django.db.models import Count
 
 def homepage(request):
     """
-    Blog homepage.
-
-    Context variables:
-        - `search_form`: An instance of SearchForm for handling search queries.
+    Blog homepage view.
     """
 
     return render(request, 'blog/index.html')
@@ -67,7 +64,7 @@ def post_detail(request, year, month, day, post):
 
     Renders a template displaying a single published post,
     along with comments, a form for posting new comments,
-    and a list of recommended posts..
+    and a list of recommended posts.
 
     Parameters:
         - `year`: The year of the post's publication.
