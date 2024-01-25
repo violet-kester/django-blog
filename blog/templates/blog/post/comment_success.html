@@ -1,0 +1,13 @@
+{% extends base_template %}
+
+{% block title %}Comment added{% endblock %}
+
+{% block main %}
+
+<div class="text-center">
+  <h3>success</h3>
+  <p>Your comment has been added.</p>
+  <a href="{{ post.get_absolute_url }}">Back to post</a>
+</div>
+
+{% endblock %}
